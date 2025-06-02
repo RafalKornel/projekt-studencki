@@ -14,6 +14,7 @@ export interface User {
   fullname: string;
   id: Generated<number>;
   password_hash: string;
+  role: string;
 }
 
 export interface DB {

@@ -2,10 +2,12 @@
 
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
+import { revalidatePath } from "next/cache";
 
 export async function logout() {
-  console.log("logging out")
-  await signOut({ redirectTo: "/"});
+  console.log("logging out");
+  revalidatePath("/");
+  await signOut({ redirectTo: "/login" });
 }
 
 export async function authenticate(
@@ -26,5 +28,3 @@ export async function authenticate(
     throw error;
   }
 }
-
-

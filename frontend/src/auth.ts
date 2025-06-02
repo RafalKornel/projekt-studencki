@@ -5,6 +5,8 @@ import { db } from "./database/db";
 import { z } from "zod";
 
 import bcrypt from "bcrypt";
+import { Role } from "./database/enums";
+import { revalidatePath } from "next/cache";
 
 async function getUser(email: string) {
   return await db
@@ -44,10 +46,12 @@ export const { auth, signIn, signOut } = NextAuth({
         );
 
         if (passwordsMatch) {
+          revalidatePath("/");
           return {
             email: user.email,
             id: String(user.id),
             name: user.fullname,
+            role: user.role as Role,
           };
         }
 

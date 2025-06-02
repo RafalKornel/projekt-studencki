@@ -15,8 +15,6 @@ import {
 export function ThemeSwitcher() {
   const { setTheme, theme, forcedTheme } = useTheme()
 
-  console.log(theme, forcedTheme)
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

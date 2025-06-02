@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  nextjs:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: nextjs_dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres_user:postgres_password@postgres:5432/next_dev?schema=public
+      - DATABASE_TYPE=postgres
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_dev
+    environment:
+      - POSTGRES_DB=next_dev
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

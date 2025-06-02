@@ -2,9 +2,10 @@
   "sqltools.connections": [
     {
       "previewLimit": 50,
-      "driver": "SQLite",
-      "name": "sqlite",
-      "database": "db.sqlite"
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "name": "studencki",
+      "connectString": "postgresql://postgres_user:postgres_password@localhost:5432/next_dev?schema=public"
     }
   ]
 }

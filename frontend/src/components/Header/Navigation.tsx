@@ -5,15 +5,20 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navigation } from "../../navigation";
+import { getNavigationItems, NavigationItem } from "../../navigation";
+import { useSession } from "next-auth/react";
 
-export const NavigationDesktop = () => {
+type Props = {
+  navigationItems: NavigationItem[];
+}
+
+export const NavigationDesktop = ({navigationItems}: Props) => {
   const pathname = usePathname();
 
   return (
     <DisclosurePanel className="sm:hidden">
       <div className="space-y-1 px-2 pt-2 pb-3">
-        {navigation.map((item) => {
+        {navigationItems.map((item) => {
           const isCurrent = pathname === item.href;
 
           return (
@@ -38,13 +43,13 @@ export const NavigationDesktop = () => {
   );
 };
 
-export const NavigationMobile = () => {
+export const NavigationMobile = ({navigationItems}: Props) => {
   const pathname = usePathname();
 
   return (
     <div className="hidden sm:ml-6 sm:block">
       <div className="flex space-x-4">
-        {navigation.map((item) => {
+        {navigationItems.map((item) => {
           const isCurrent = item.href === pathname;
 
           return (

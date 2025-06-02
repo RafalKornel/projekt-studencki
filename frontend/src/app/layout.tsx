@@ -40,7 +40,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SessionProvider session={session}>
+          <SessionProvider session={session} key={session?.user.id}>
             <Header />
             <div className="flex w-full h-full items-center justify-center p-8">
               <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>

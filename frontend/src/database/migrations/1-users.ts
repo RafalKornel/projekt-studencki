@@ -3,12 +3,11 @@ import { Kysely } from "kysely";
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
     .createTable("user")
-    .addColumn("id", "integer", (col) =>
-      col.notNull().autoIncrement().primaryKey()
-    )
+    .addColumn("id", "serial", (col) => col.notNull().primaryKey())
     .addColumn("email", "text", (col) => col.notNull())
     .addColumn("fullname", "text", (col) => col.notNull())
     .addColumn("password_hash", "text", (col) => col.notNull())
+    .addColumn("role", "text", (col) => col.notNull())
     .execute();
 }
 
