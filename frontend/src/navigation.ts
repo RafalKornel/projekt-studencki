@@ -7,6 +7,7 @@ export type NavigationItem = {
 };
 
 const navigation: NavigationItem[] = [
+  { name: "Test page", href: "/test", for: Object.values(Role) },
   {
     name: "Home",
     href: "/",
