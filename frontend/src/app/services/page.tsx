@@ -16,7 +16,7 @@ export default async function ServicesPage() {
   const services = await getServices();
 
   return (
-    <main className="flex flex-col h-full gap-4">
+    <main className="flex flex-col gap-4">
       <div className="flex flex-row justify-between">
         <h1 className="text-3xl">Services page</h1>
         <NewServiceSider />

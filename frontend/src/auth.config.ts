@@ -1,5 +1,4 @@
 import { NextAuthConfig } from "next-auth";
-import { revalidatePath } from "next/cache";
 
 export const authConfig = {
   pages: {
@@ -25,12 +24,14 @@ export const authConfig = {
     jwt({ token, user }) {
       if (user) {
         token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
     session({ session, token }) {
       if (token && session.user) {
         session.user.role = token.role;
+        session.user.id = token.id;
       }
       return session;
     },

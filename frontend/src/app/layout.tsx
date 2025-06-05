@@ -42,7 +42,7 @@ export default async function RootLayout({
         >
           <SessionProvider session={session} key={session?.user.id}>
             <Header />
-            <div className="flex w-full h-full items-center justify-center p-8">
+            <div className="flex max-w-[1280] w-full h-full items-center justify-center p-8 mx-auto [&_main]:w-full [&_main]:h-full">
               <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
             </div>
             <Footer />

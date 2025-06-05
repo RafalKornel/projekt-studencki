@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
 import { Role } from "@/database/enums";
 import { redirect } from "next/navigation";
-import { AdminAppointmentsPage } from "./pages/AdminPage";
-import { DoctorAppointmentsPage } from "./pages/DoctorPage";
-import { UserAppointmentsPage } from "./pages/UserPage";
 import { getAppointments } from "./actions";
 import { AppointmentsTable } from "./components/AppointmentsTable";
+import { RequestAppointmentSider } from "./components/RequestAppointmentSider";
+import { Separator } from "@/components/ui/separator";
+import { Calendar } from "@/components/Calendar";
 
 export default async function AppointmentsPage() {
   const session = await auth();
@@ -16,15 +16,20 @@ export default async function AppointmentsPage() {
 
   const appointments = await getAppointments(session.user);
 
-  return <AppointmentsTable appointments={appointments} renderActions={(a) => a.id} />
+  return (
+    <main className="flex flex-col gap-4">
+      <div className="flex flex-row justify-between">
+        <h1 className="text-3xl">Appointments page</h1>
+        {session.user.role === Role.User && <RequestAppointmentSider />}
+      </div>
 
-  // switch(session.user.role) {
-  //   case Role.Administrator:
-  //     return <AdminAppointmentsPage user={session.user} />;
-  //   case Role.Doctor:
-  //     return <DoctorAppointmentsPage />;
-  //   case Role.User:
-  //     return <UserAppointmentsPage />;
-  //   defualt: return null;
-  // }
+      <Separator />
+
+      <AppointmentsTable appointments={appointments} role={session.user.role} />
+
+      <Separator />
+
+      <Calendar events={appointments} />
+    </main>
+  );
 }

@@ -23,7 +23,6 @@ const navigation: NavigationItem[] = [
     href: "/appointments",
     for: [Role.Administrator, Role.Doctor, Role.User],
   },
-  { name: "Book appointment", href: "/book-appointment", for: [Role.User] },
 ];
 
 export const getNavigationItems = (role: Role) =>

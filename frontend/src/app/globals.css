@@ -96,7 +96,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.541 0.281 293.009);
+  --ring: oklch(0.33 0.19 289.56);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -117,7 +117,40 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer theme {
+  .dark {
+
+    .rbc-btn-group>button {
+      color: var(--foreground) !important;
+    }
+
+    .rbc-btn-group>button.rbc-active, .rbc-btn-group>button:hover {
+      color: var(--background) !important;
+    }
+
+    .rbc-current, .rbc-today {
+      color: var(--foreground) !important;
+    }
+
+    .rbc-today {
+      background: var(--color-ring) !important;
+    }
+
+    .rbc-off-range-bg {
+      background: rgba(var(--color-foreground), 0.2) !important;
+    }
+
+    .rbc-time-content>*+*>*, .rbc-day-slot .rbc-time-slot {
+      border-color: rgba(139, 139, 139, 0.5) !important;
+      /* border-width: 0.5px; */
+    }
+    .rbc-day-slot {}
+  }
+
 }

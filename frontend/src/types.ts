@@ -1,3 +1,12 @@
+import { Role } from "./database/enums";
+
+export type User = {
+  id: number;
+  email: string;
+  fullname: string;
+  role: Role;
+};
+
 export type ServiceType = {
   id: number;
   name: string;
@@ -5,11 +14,10 @@ export type ServiceType = {
   duration: number;
 };
 
-
 export type AppointmentType = {
   id: number;
-  patientId: number;
-  doctorId: number;
+  patient: User;
+  doctor: User;
   service: ServiceType;
   startTime: Date;
   endTime: Date;
@@ -18,4 +26,4 @@ export type AppointmentType = {
   confirmationDate?: Date | null;
   completionDate?: Date | null;
   cancellationDate?: Date | null;
-}
+};

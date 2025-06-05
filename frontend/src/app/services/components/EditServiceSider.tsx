@@ -1,51 +1,29 @@
 "use client";
 
-import { PenBoxIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { useActionState } from "react";
 import { editService } from "../actions";
-import { ActionResponse } from "@/app/test/ActionResponse";
 import { FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { ServiceType } from "@/types";
+import { SiderForm } from "@/components/SiderForm";
+import { PenBoxIcon } from "lucide-react";
 
 type Props = {
   service: ServiceType;
 };
 
 export function EditServiceSider({ service }: Props) {
-  const [state, action, isPending] = useActionState(editService, {
-    message: "",
-    inputs: service,
-  } as ActionResponse);
-
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          variant="secondary"
-          size="icon"
-          className="size-8 hover:cursor-pointer"
-        >
-          <PenBoxIcon />
-        </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit existing service</SheetTitle>
-          <SheetDescription>Provide all details and submit.</SheetDescription>
-        </SheetHeader>
-        <form action={action} className="px-4 flex flex-col gap-4">
+    <SiderForm
+      title="Edit existing service"
+      description="Provide all details and submit."
+      action={editService}
+      initialState={{
+        message: "",
+        inputs: service,
+      }}
+      buttonContent={<PenBoxIcon />}
+      renderForm={(state) => (
+        <>
           <input name="id" id="id" value={service.id} hidden />
 
           <FormItem>
@@ -88,17 +66,8 @@ export function EditServiceSider({ service }: Props) {
             />
             <FormMessage errors={state.errors?.description} />
           </FormItem>
-
-          <SheetFooter>
-            <Button type="submit" disabled={isPending}>
-              {isPending ? "Loading..." : "Save changes"}
-            </Button>
-            <SheetClose asChild>
-              <Button variant="outline">Close</Button>
-            </SheetClose>
-          </SheetFooter>
-        </form>
-      </SheetContent>
-    </Sheet>
+        </>
+      )}
+    />
   );
 }

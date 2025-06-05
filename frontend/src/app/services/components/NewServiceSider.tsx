@@ -21,23 +21,17 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-const initialState: ActionResponse = { message: "" };
+import { SiderForm } from "@/components/SiderForm";
 
 export function NewServiceSider() {
-  const [state, action, isPending] = useActionState(addService, initialState);
-
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">New service</Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Create new service</SheetTitle>
-          <SheetDescription>Provide all details and submit.</SheetDescription>
-        </SheetHeader>
-        <form action={action} className="px-4 flex flex-col gap-4">
+    <SiderForm
+      title="Create new service"
+      description="Provide all details and submit."
+      action={addService}
+      buttonContent="Create service"
+      renderForm={(state) => (
+        <>
           <FormItem>
             <FormLabel htmlFor="name">Name</FormLabel>
             <Input
@@ -81,17 +75,8 @@ export function NewServiceSider() {
             <FormDescription>Description of your new service</FormDescription>
             <FormMessage errors={state.errors?.description} />
           </FormItem>
-
-          <SheetFooter>
-            <Button type="submit" disabled={isPending}>
-              {isPending ? "Loading..." : "Save changes"}
-            </Button>
-            <SheetClose asChild>
-              <Button variant="outline">Close</Button>
-            </SheetClose>
-          </SheetFooter>
-        </form>
-      </SheetContent>
-    </Sheet>
+        </>
+      )}
+    />
   );
 }
