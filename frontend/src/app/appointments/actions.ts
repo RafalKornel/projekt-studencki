@@ -82,8 +82,12 @@ export const requestAppointment = async (
   return actionResponse;
 };
 export const editAppointment = async (
-  a: ActionResponse
+  a: ActionResponse,
+  form: FormData
 ): Promise<ActionResponse> => {
   "use server";
+
+  console.log([...form.entries()]);
+
   return a;
 };

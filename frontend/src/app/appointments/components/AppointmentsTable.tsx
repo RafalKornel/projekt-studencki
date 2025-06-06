@@ -10,8 +10,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Role } from "@/database/enums";
-import { AppointmentType } from "@/types";
+import { AppointmentType, ServiceType } from "@/types";
 import { EditAppointmentSider } from "./EditAppointment";
+import { getUsers } from "@/lib/actions";
+import { getServices } from "@/app/services/actions";
 
 type Props = {
   appointments: AppointmentType[];
@@ -19,8 +21,10 @@ type Props = {
   className?: string;
 };
 
-export function AppointmentsTable({ appointments, role }: Props) {
-  console.log(appointments);
+export async function AppointmentsTable({ appointments, role }: Props) {
+  const users = await getUsers();
+  const services = await getServices();
+
   return (
     <div className="border-2 border-slate-700 p-4">
       <Table>
@@ -63,7 +67,11 @@ export function AppointmentsTable({ appointments, role }: Props) {
               )}
               {role === Role.Administrator && (
                 <TableCell>
-                  <EditAppointmentSider appointment={appointment} />
+                  <EditAppointmentSider
+                    appointment={appointment}
+                    services={services}
+                    users={users}
+                  />
                 </TableCell>
               )}
             </TableRow>

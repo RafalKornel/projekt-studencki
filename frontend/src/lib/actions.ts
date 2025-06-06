@@ -1,6 +1,8 @@
 "use server";
 
 import { signIn, signOut } from "@/auth";
+import { db } from "@/database/db";
+import { Role } from "@/database/enums";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 
@@ -27,4 +29,20 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+export type UserMinimal = {
+  id: number;
+  email: string;
+  fullname: string;
+  role: string;
+};
+
+export async function getUsers() {
+  const users = await db
+    .selectFrom("user")
+    .select(["email", "fullname", "id", "role"])
+    .execute();
+
+  return users;
 }

@@ -6,6 +6,7 @@ import { AppointmentsTable } from "./components/AppointmentsTable";
 import { RequestAppointmentSider } from "./components/RequestAppointmentSider";
 import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/Calendar";
+import { getServices } from "../services/actions";
 
 export default async function AppointmentsPage() {
   const session = await auth();
@@ -25,7 +26,10 @@ export default async function AppointmentsPage() {
 
       <Separator />
 
-      <AppointmentsTable appointments={appointments} role={session.user.role} />
+      <AppointmentsTable
+        appointments={appointments}
+        role={session.user.role}
+      />
 
       <Separator />
 
